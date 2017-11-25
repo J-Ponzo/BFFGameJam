@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private int playerId = 0;
     [SerializeField]
+    private GameManager.PlayerRole playerRole;
+    [SerializeField]
     private InputManager.KeyMapping keyMap = InputManager.KeyMapping.KeyBoard;
 
     [SerializeField]
@@ -42,6 +44,24 @@ public class PlayerController : MonoBehaviour {
         {
             keyMap = value;
         }
+    }
+
+    public GameManager.PlayerRole PlayerRole
+    {
+        get
+        {
+            return playerRole;
+        }
+
+        set
+        {
+            playerRole = value;
+        }
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Use this for initialization

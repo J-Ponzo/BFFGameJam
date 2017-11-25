@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
             Destroy(gameObject);
         }
         initJoystickIdResultutionTab();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public enum ActionControl
