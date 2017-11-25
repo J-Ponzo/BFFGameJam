@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: b7202322b80a8a74cb9fb5ad6402be85
+timeCreated: 1511615097
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Disko OT
+  fontNames:
+  - Disko OT
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

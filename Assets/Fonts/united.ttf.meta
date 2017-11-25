@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e2f0fd059819e844d9e773c1de547033
+timeCreated: 1511615097
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: UNITED BRK
+  fontNames:
+  - UNITED BRK
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

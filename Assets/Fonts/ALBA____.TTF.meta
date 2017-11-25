@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7cd62a55a2f463644bc6953fa1213750
+timeCreated: 1511615097
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Alba
+  fontNames:
+  - Alba
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
