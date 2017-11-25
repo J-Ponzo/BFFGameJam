@@ -13,6 +13,7 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - Front UI
   - 
   - 
@@ -21,6 +22,16 @@ TagManager:
   - 
   - 
   - 
+=======
+  - Player1Arms
+  - Player2Arms
+  - Player3Arms
+  - Player4Arms
+  - Player1Body
+  - Player2Body
+  - Player3Body
+  - Player4Body
+>>>>>>> 98331219b8c65d19ba69ae0455bf5edb1db27a32
   - 
   - 
   - 
