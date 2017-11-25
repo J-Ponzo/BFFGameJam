@@ -106,10 +106,12 @@ public class GameManager : MonoBehaviour
         //Init Game State
         InitPlayers();
         InitViewPorts();
+        InitCameraLayers();
     }
 
     private void InitPlayers()
     {
+        //Create Players
         player1 = Instantiate(playerPfb);
         PlayerController player1Ctrl = player1.GetComponent<PlayerController>();
         player1Ctrl.PlayerId = 0;
@@ -132,6 +134,7 @@ public class GameManager : MonoBehaviour
         players[2] = player3;
         players[3] = player4;
 
+        //Set Controls
         foreach (GameObject player in players)
         {
             PlayerController playerCtrl = player.GetComponent<PlayerController>();
@@ -140,6 +143,85 @@ public class GameManager : MonoBehaviour
             {
                 playerCtrl.KeyMap = InputManager.instance.GetKeymapFromJoytickName(joystickName);
             }
+        }
+    }
+
+    private void InitCameraLayers()
+    {
+        //Get Layers & masks
+        int player1ArmsLayer = LayerMask.NameToLayer("Player1Arms");
+        int player2ArmsLayer = LayerMask.NameToLayer("Player2Arms");
+        int player3ArmsLayer = LayerMask.NameToLayer("Player3Arms");
+        int player4ArmsLayer = LayerMask.NameToLayer("Player4Arms");
+        int player1ArmsLayerMask = 1 << player1ArmsLayer;
+        int player2ArmsLayerMask = 1 << player2ArmsLayer;
+        int player3ArmsLayerMask = 1 << player3ArmsLayer;
+        int player4ArmsLayerMask = 1 << player4ArmsLayer;
+        int player1BodyLayer = LayerMask.NameToLayer("Player1Body");
+        int player2BodyLayer = LayerMask.NameToLayer("Player2Body");
+        int player3BodyLayer = LayerMask.NameToLayer("Player3Body");
+        int player4BodyLayer = LayerMask.NameToLayer("Player4Body");
+        int player1BodyLayerMask = 1 << player1BodyLayer;
+        int player2BodyLayerMask = 1 << player2BodyLayer;
+        int player3BodyLayerMask = 1 << player3BodyLayer;
+        int player4BodyLayerMask = 1 << player4BodyLayer;
+
+        //Set Arms Layers
+        Camera player1Cam = player1.GetComponentInChildren<Camera>();
+        GameObject player1Arms = player1Cam.transform.Find("Arms").gameObject;
+        SetLayerOnSubTree(player1Arms, player1ArmsLayer);
+
+        Camera player2Cam = player2.GetComponentInChildren<Camera>();
+        GameObject player2Arms = player2Cam.transform.Find("Arms").gameObject;
+        SetLayerOnSubTree(player2Arms, player2ArmsLayer);
+
+        Camera player3Cam = player3.GetComponentInChildren<Camera>();
+        GameObject player3Arms = player3Cam.transform.Find("Arms").gameObject;
+        SetLayerOnSubTree(player3Arms, player3ArmsLayer);
+
+        Camera player4Cam = player4.GetComponentInChildren<Camera>();
+        GameObject player4Arms = player4Cam.transform.Find("Arms").gameObject;
+        SetLayerOnSubTree(player4Arms, player4ArmsLayer);
+
+        //Set Body Layers
+        GameObject player1Body = player1.transform.Find("Body").gameObject;
+        SetLayerOnSubTree(player1Body, player1BodyLayer);
+
+        GameObject player2Body = player2.transform.Find("Body").gameObject;
+        SetLayerOnSubTree(player2Body, player2BodyLayer);
+
+        GameObject player3Body = player3.transform.Find("Body").gameObject;
+        SetLayerOnSubTree(player3Body, player3BodyLayer);
+
+        GameObject player4Body = player4.transform.Find("Body").gameObject;
+        SetLayerOnSubTree(player4Body, player4BodyLayer);
+
+        //Set Camera Culling Masks
+        int mask = 0;
+        mask = player1BodyLayerMask | player2ArmsLayerMask | player3ArmsLayerMask | player4ArmsLayerMask;
+        player1Cam.cullingMask = ~mask;
+
+        mask = 0;
+        mask = player1ArmsLayerMask | player2BodyLayerMask | player3ArmsLayerMask | player4ArmsLayerMask;
+        player2Cam.cullingMask = ~mask;
+
+        mask = 0;
+        mask = player1ArmsLayerMask | player2ArmsLayerMask | player3BodyLayerMask | player4ArmsLayerMask;
+        player3Cam.cullingMask = ~mask;
+
+        mask = 0;
+        mask = player1ArmsLayerMask | player2ArmsLayerMask | player3ArmsLayerMask | player4BodyLayerMask;
+        player4Cam.cullingMask = ~mask;
+    }
+
+    private void SetLayerOnSubTree(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+
+        for (int i = 0; i < obj.transform.childCount; i++)
+        {
+            Transform child = obj.transform.GetChild(i);
+            SetLayerOnSubTree(child.gameObject, layer);
         }
     }
 
@@ -161,6 +243,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
