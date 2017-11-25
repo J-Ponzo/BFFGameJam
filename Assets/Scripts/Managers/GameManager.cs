@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public enum PlayerRole
+    {
+        Medic,
+        Dealer,
+        Talky,
+        Dwarf,
+        None
+    }
     /// <summary>
     /// The static instance of the Singleton for external access
     /// </summary>
@@ -19,6 +27,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
 
         //Enforce the unicity of the Singleton
@@ -30,6 +39,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject inputManagerPfb;
+    [SerializeField]
+    private GameObject sequenceManagerPfb;
+
+    [SerializeField]
+    private GameObject lobbyPfb;
+    [SerializeField]
+    private LobbyPlayer[] lobbyPlayers;
 
     [SerializeField]
     private GameObject playerPfb;
@@ -96,14 +112,50 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public LobbyPlayer[] LobbyPlayers
+    {
+        get
+        {
+            return lobbyPlayers;
+        }
+
+        set
+        {
+            lobbyPlayers = value;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
         //Init Managers
         GameObject inputManager = Instantiate(inputManagerPfb);
         inputManager.transform.parent = this.transform;
+        GameObject sequenceManager = Instantiate(sequenceManagerPfb);
+        sequenceManager.transform.parent = this.transform;
 
-        //Init Game State
+        lobbyPlayers = new LobbyPlayer[4];
+        lobbyPlayers[0] = Instantiate(lobbyPfb).GetComponent<LobbyPlayer>();
+        lobbyPlayers[0].PlayerId = 0;
+        lobbyPlayers[1] = Instantiate(lobbyPfb).GetComponent<LobbyPlayer>();
+        lobbyPlayers[1].PlayerId = 1;
+        lobbyPlayers[2] = Instantiate(lobbyPfb).GetComponent<LobbyPlayer>();
+        lobbyPlayers[2].PlayerId = 2;
+        lobbyPlayers[3] = Instantiate(lobbyPfb).GetComponent<LobbyPlayer>();
+        lobbyPlayers[3].PlayerId = 3;
+        foreach (LobbyPlayer lobby in lobbyPlayers)
+        {
+            lobby.PlayerRole = PlayerRole.None;
+            string joystickName = InputManager.instance.GetJoystickNameFromPlayerId(lobby.PlayerId);
+            if (joystickName != null)
+            {
+                lobby.KeyMap = InputManager.instance.GetKeymapFromJoytickName(joystickName);
+            }
+        }
+    }
+
+    public void CreatePlayersFromLobby()
+    {
         InitPlayers();
         InitViewPorts();
         InitCameraLayers();
@@ -135,14 +187,12 @@ public class GameManager : MonoBehaviour
         players[3] = player4;
 
         //Set Controls
-        foreach (GameObject player in players)
+        for (int i = 0; i < players.Length; i++)
         {
-            PlayerController playerCtrl = player.GetComponent<PlayerController>();
-            string joystickName = InputManager.instance.GetJoystickNameFromPlayerId(playerCtrl.PlayerId);
-            if (joystickName != null)
-            {
-                playerCtrl.KeyMap = InputManager.instance.GetKeymapFromJoytickName(joystickName);
-            }
+            PlayerController playerCtrl = players[i].GetComponent<PlayerController>();
+            playerCtrl.PlayerId = lobbyPlayers[i].PlayerId;
+            playerCtrl.KeyMap = lobbyPlayers[i].KeyMap;
+            playerCtrl.PlayerRole = lobbyPlayers[i].PlayerRole;
         }
     }
 
