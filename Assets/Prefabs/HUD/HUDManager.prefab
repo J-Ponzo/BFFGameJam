@@ -53,3 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTotalLife: 100
   playerCurrentLife: 0
+  bullesTab: {fileID: 0}
+  bulleCree: {fileID: 114606117978466566, guid: b1b87313861235a48a650db213fc2e28,
+    type: 2}
