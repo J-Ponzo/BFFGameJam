@@ -8,7 +8,10 @@ public class HUDManager : MonoBehaviour {
     public float playerCurrentLife;
 
     private float timeBeforeHeal;
-    private float recoveryTimeHeal = 3;
+    private float recoveryTimeHeal = 2;
+    public Sprite bullesTab;
+    public Bulle bulleCree;
+    public ParticleSystem explosion;
 
     // Use this for initialization
     void Start () {       
@@ -20,9 +23,12 @@ public class HUDManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             TakeDamage(5);
-        } else
+        } if (Input.GetKeyDown(KeyCode.Space)) {
+            BulleCreation("Cool");
+        }
+        else
         {
-            TakeLife(0.1f);
+            ReloadLife(0.1f);
         }
 	}
 
@@ -41,7 +47,7 @@ public class HUDManager : MonoBehaviour {
     }
 
     //Recharche la bar de Stun du joueur
-    void TakeLife(float life)
+    void ReloadLife(float life)
     {
         if (playerCurrentLife < playerTotalLife && timeBeforeHeal < Time.time)
         {            
@@ -49,5 +55,19 @@ public class HUDManager : MonoBehaviour {
         }            
         GameObject lifeBar = GameObject.Find("LifeBarCurrent");
         lifeBar.transform.localScale = new Vector3((playerCurrentLife / playerTotalLife), 1, 1);
+    }
+
+    void BulleCreation(string text)
+    {
+        Transform transClone = this.transform;
+        transClone.localScale = new Vector3(1, 1, 1);
+        Bulle clone = (Bulle)Instantiate(bulleCree, this.transform, true);
+        clone.timeoutDestructor = 1.5f;
+        clone.SetText(text);
+    }
+
+    public void BulleExplosion()
+    {
+        ParticleSystem clone = (ParticleSystem)Instantiate(explosion, this.transform, true);
     }
 }
