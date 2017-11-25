@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 20453695465408566}
   - component: {fileID: 124488192814402130}
   - component: {fileID: 92472066723145038}
-  - component: {fileID: 81099286294590842}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -45,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4627200328781288
 Transform:
   m_ObjectHideFlags: 1
@@ -109,13 +108,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!81 &81099286294590842
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1702774174786866}
-  m_Enabled: 1
 --- !u!92 &92472066723145038
 Behaviour:
   m_ObjectHideFlags: 1
@@ -135,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
-  keyMap: 2
+  keyMap: 1
   moveSpeed: 3
   aimSpeed: 90
   axisThreshold: 0.1

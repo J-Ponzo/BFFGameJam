@@ -18,8 +18,34 @@ public class PlayerController : MonoBehaviour {
 
     private GameObject playerCam;
 
-	// Use this for initialization
-	void Start () {
+    public int PlayerId
+    {
+        get
+        {
+            return playerId;
+        }
+
+        set
+        {
+            playerId = value;
+        }
+    }
+
+    public InputManager.KeyMapping KeyMap
+    {
+        get
+        {
+            return keyMap;
+        }
+
+        set
+        {
+            keyMap = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         playerCam = GetComponentInChildren<Camera>().gameObject;
     }
 	
