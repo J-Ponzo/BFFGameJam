@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23851515065699128}
   - component: {fileID: 65805536887295296}
   m_Layer: 0
-  m_Name: Front_Empty_8
+  m_Name: Front_Empty_8_ShootLocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a62ef013da49bf3419f298ef338bddf9, type: 2}
+  - {fileID: 2100000, guid: 071fdc6172f771f4596108d429691785, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
