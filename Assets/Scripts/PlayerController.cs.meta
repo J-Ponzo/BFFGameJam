@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 0465a13055b584448afb2ae8ebb885a0
-timeCreated: 1511600138
+timeCreated: 1511687482
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hudPfb: {fileID: 1401229008250088, guid: 45ed70bffdd888d4c96a41f6d67c803c, type: 2}
+  - gun: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

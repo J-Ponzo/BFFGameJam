@@ -12,7 +12,13 @@ public class PlayerController : MonoBehaviour {
     private InputManager.KeyMapping keyMap = InputManager.KeyMapping.KeyBoard;
     [SerializeField]
     private GameObject hudPfb;
+    
+    public float walkSpeed = 5f;
+    public float runSpeed = 15f;
+    public float slowSpeed = 2f;
 
+    public float range = 2f;
+    
     [SerializeField]
     private float moveSpeed = 3f;
     [SerializeField]
@@ -22,10 +28,20 @@ public class PlayerController : MonoBehaviour {
 
     private GameObject playerCam;
 
-    public int PlayerId
-    {
-        get
-        {
+
+    public GunController gun;
+    private HUDManager hudScript;
+
+    public int bullet = 30;
+    public int totalBullet = 30;
+    public int sacADos = 50;
+    private int maxSacADos = 50;
+
+    private bool unluck = false;
+
+    public int PlayerId {
+        get {
+
             return playerId;
         }
 
@@ -71,6 +87,11 @@ public class PlayerController : MonoBehaviour {
         playerCam = GetComponentInChildren<Camera>().gameObject;
 
         GameObject hud = Instantiate(hudPfb);
+        hudScript = hud.GetComponent<HUDManager>();
+
+        hudScript.SetAmmoCurrentValue(bullet);
+        hudScript.SetAmmoMax(sacADos);
+
         hud.transform.SetParent(this.transform);
         Canvas hudCanvas = hud.GetComponent<Canvas>();
         hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
@@ -137,35 +158,101 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void CallComander()
-    {
+    private void CallComander() {
         Debug.Log("CallComander");
     }
 
-    private void Heal()
-    {
+    private void Heal() {
         Debug.Log("Heal");
+
+        GameObject[] players = new GameObject[4];
+
+        players[0] = GameManager.instance.Player1;
+        players[1] = GameManager.instance.Player2;
+        players[2] = GameManager.instance.Player3;
+        players[3] = GameManager.instance.Player4;
+
+        for (int i = 0; i < players.Length; i++) {
+
+            if (players[i].GetComponent<PlayerController>().playerId != this.playerId && Vector3.Distance(transform.position, players[i].transform.position) <= range) {
+                Debug.Log("SOIGNE !");
+                break;
+            }
+        }
+
     }
 
-    private void CloseDoor()
-    {
+    private void CloseDoor() {
         Debug.Log("CloseDoor");
     }
 
-    private void DealAmmo()
-    {
+    private void DealAmmo() {
         Debug.Log("DealAmmo");
+
+        GameObject[] players = new GameObject[4];
+
+        players[0] = GameManager.instance.Player1;
+        players[1] = GameManager.instance.Player2;
+        players[2] = GameManager.instance.Player3;
+        players[3] = GameManager.instance.Player4;
+
+        for (int i = 0; i < players.Length; i++) {
+
+            if (players[i].GetComponent<PlayerController>().playerId != this.playerId && Vector3.Distance(transform.position, players[i].transform.position) <= range) {
+                players[i].GetComponent<PlayerController>().sacADos = maxSacADos;
+                Debug.Log("AMMO DONNE !");
+                break;
+            }
+        }
+
     }
 
-    private void Reload()
-    {
+    private void Reload() {
         Debug.Log("Reload");
+        int balleRecharger = (totalBullet - bullet);
+
+        int balles = Mathf.Min(balleRecharger, sacADos);
+
+        sacADos -= balles;
+
+        bullet += balles;
+
+        //bullet = totalBullet;
+        hudScript.SetAmmoCurrentValue(bullet);
+        hudScript.SetAmmoMax(sacADos);
     }
 
-    private void Fire()
-    {
-        Debug.Log("Fire");
+    private void BrokenLeg() {
+        moveSpeed = slowSpeed;
     }
+
+    private void BrokenGun() {
+            int rand = UnityEngine.Random.Range(1, 3);
+            if (rand == 1) {
+                if (moveSpeed < runSpeed && bullet > 0) {
+                    gun.Shoot();
+                    hudScript.SetAmmoCurrentValue(--bullet);
+                }
+            }
+    }
+
+    public int setMalus() {
+        return UnityEngine.Random.Range(1, 2);
+    }
+
+    private void Fire() {
+        if (moveSpeed < runSpeed && bullet > 0) {
+            gun.Shoot();
+
+            Debug.Log(hudScript);
+            hudScript.SetAmmoCurrentValue(--bullet);
+        }
+
+        if (bullet == 0) {
+            Reload();
+        }
+    }
+
 
     private void HandleAim()
     {
