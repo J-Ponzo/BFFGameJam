@@ -12,10 +12,6 @@ public class PlayerController : MonoBehaviour {
     private InputManager.KeyMapping keyMap = InputManager.KeyMapping.KeyBoard;
     [SerializeField]
     private GameObject hudPfb;
-    
-    public float walkSpeed = 5f;
-    public float runSpeed = 15f;
-    public float slowSpeed = 2f;
 
     public float range = 2f;
     
@@ -38,6 +34,15 @@ public class PlayerController : MonoBehaviour {
     private int maxSacADos = 50;
 
     private bool unluck = false;
+
+    [SerializeField]
+    private ShkumunManager.Malus malus;
+    [SerializeField]
+    private float leggMalusFactor = 0.1f;
+    [SerializeField]
+    private float runFactor = 5f;
+    [SerializeField]
+    private bool isRunning = false;
 
     public int PlayerId {
         get {
@@ -131,12 +136,14 @@ public class PlayerController : MonoBehaviour {
 
     private void StopRunning()
     {
-        Debug.Log("StopRunning");
+        isRunning = false;
+        moveSpeed /= runFactor;
     }
 
     private void StartRunning()
     {
-        Debug.Log("StartRunning");
+        isRunning = true;
+        moveSpeed *= runFactor;
     }
 
     private void RoleAction()
@@ -222,26 +229,12 @@ public class PlayerController : MonoBehaviour {
         hudScript.SetAmmoMax(sacADos);
     }
 
-    private void BrokenLeg() {
-        moveSpeed = slowSpeed;
-    }
-
-    private void BrokenGun() {
-            int rand = UnityEngine.Random.Range(1, 3);
-            if (rand == 1) {
-                if (moveSpeed < runSpeed && bullet > 0) {
-                    gun.Shoot();
-                    hudScript.SetAmmoCurrentValue(--bullet);
-                }
-            }
-    }
-
-    public int setMalus() {
-        return UnityEngine.Random.Range(1, 2);
+    public void SetShumun(ShkumunManager.Malus malus) {
+        this.malus = malus;
     }
 
     private void Fire() {
-        if (moveSpeed < runSpeed && bullet > 0) {
+        if (!isRunning && bullet > 0) {
             gun.Shoot();
 
             Debug.Log(hudScript);
@@ -283,21 +276,27 @@ public class PlayerController : MonoBehaviour {
 
     private void HandleMotion()
     {
+        float actualSpeed = moveSpeed;
+        if (this.malus == ShkumunManager.Malus.Legg)
+        {
+            actualSpeed *= leggMalusFactor;
+        }
+
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveFwd) > axisThreshold)
         {
-            this.transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            this.transform.position += transform.forward * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveBck) < -axisThreshold)
         {
-            this.transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+            this.transform.position -= transform.forward * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffRight) < -axisThreshold)
         {
-            this.transform.position += transform.right * moveSpeed * Time.deltaTime;
+            this.transform.position += transform.right * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffLeft) > axisThreshold)
         {
-            this.transform.position -= transform.right * moveSpeed * Time.deltaTime;
+            this.transform.position -= transform.right * actualSpeed * Time.deltaTime;
         }
     }
 }
