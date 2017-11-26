@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 223790891932229968}
   - component: {fileID: 114893755851074460}
   - component: {fileID: 114852890715298812}
+  - component: {fileID: 114573941059456596}
   - component: {fileID: 114530216617466620}
   m_Layer: 5
   m_Name: HUDCoop
@@ -152,6 +153,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114573941059456596
 --- !u!114 &114530216617466620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,7 +267,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 0
 --- !u!222 &222002975684134368
 CanvasRenderer:
   m_ObjectHideFlags: 1
