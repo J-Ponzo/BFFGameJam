@@ -43,8 +43,10 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
         agent.SetDestination(trgPos);
         if (Vector3.Distance(transform.position, trgPos) < distance) {
-            Destroy(gameObject);
-            Debug.Log("Héhé");
+            GameObject hud = GameObject.Find("HUDCoop");
+            HUDCoopManager script = hud.GetComponent<HUDCoopManager>();
+            script.decrementerVie(1);
+            Destroy(gameObject);           
         }
     }
 }
