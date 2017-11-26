@@ -13,19 +13,17 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private GameObject hudPfb;
 
-    public float walkSpeed = 5f;
-    public float runSpeed = 15f;
-
     public float range = 2f;
-
+    
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float moveSpeed = 3f;
     [SerializeField]
     private float aimSpeed = 90f;
     [SerializeField]
     private float axisThreshold = 0.1f;
 
     private GameObject playerCam;
+
 
     public GunController gun;
     private HUDManager hudScript;
@@ -36,43 +34,62 @@ public class PlayerController : MonoBehaviour {
     public int sacADos = 50;
     private int maxSacADos = 50;
 
+    private bool unluck = false;
+
+    [SerializeField]
+    private ShkumunManager.Malus malus;
+    [SerializeField]
+    private float leggMalusFactor = 0.1f;
+    [SerializeField]
+    private float runFactor = 5f;
+    [SerializeField]
+    private bool isRunning = false;
+
     public int PlayerId {
         get {
+
             return playerId;
         }
 
-        set {
+        set
+        {
             playerId = value;
         }
     }
 
-    public InputManager.KeyMapping KeyMap {
-        get {
+    public InputManager.KeyMapping KeyMap
+    {
+        get
+        {
             return keyMap;
         }
 
-        set {
+        set
+        {
             keyMap = value;
         }
     }
 
-    public GameManager.PlayerRole PlayerRole {
-        get {
+    public GameManager.PlayerRole PlayerRole
+    {
+        get
+        {
             return playerRole;
         }
 
-        set {
+        set
+        {
             playerRole = value;
         }
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         DontDestroyOnLoad(this.gameObject);
     }
 
     // Use this for initialization
-    void Start() {
-
+    void Start () {
 		anim = GetComponent<Animator> ();
         playerCam = GetComponentInChildren<Camera>().gameObject;
 
@@ -82,13 +99,14 @@ public class PlayerController : MonoBehaviour {
         hudScript.SetAmmoCurrentValue(bullet);
         hudScript.SetAmmoMax(sacADos);
 
-        hud.transform.parent = this.transform;
+        hud.transform.SetParent(this.transform);
         Canvas hudCanvas = hud.GetComponent<Canvas>();
         hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
+        hudCanvas.planeDistance = 0.35f;
     }
-
-    // Update is called once per frame
-    void Update() {
+	
+	// Update is called once per frame
+	void Update () {
 		anim.SetFloat("speed", 0);
 		anim.SetBool("shoot", false);
         HandleMotion();
@@ -96,36 +114,46 @@ public class PlayerController : MonoBehaviour {
         HandleAction();
     }
 
-    private void HandleAction() {
-        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Fire)) {
+    private void HandleAction()
+    {
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Fire))
+        {
             Fire();
         }
-        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Action)) {
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Action))
+        {
             RoleAction();
         }
-        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Reload)) {
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Reload))
+        {
             Reload();
         }
-        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Run)) {
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Run))
+        {
             StartRunning();
         }
-        if (InputManager.instance.GetKeyUp(playerId, keyMap, InputManager.ActionControl.Run)) {
+        if (InputManager.instance.GetKeyUp(playerId, keyMap, InputManager.ActionControl.Run))
+        {
             StopRunning();
         }
     }
 
-    private void StopRunning() {
-        Debug.Log("StopRunning");
-        moveSpeed = walkSpeed;
+    private void StopRunning()
+    {
+        isRunning = false;
+        moveSpeed /= runFactor;
     }
 
-    private void StartRunning() {
-        Debug.Log("StartRunning");
-        moveSpeed = runSpeed;
+    private void StartRunning()
+    {
+        isRunning = true;
+        moveSpeed *= runFactor;
     }
 
-    private void RoleAction() {
-        switch (playerRole) {
+    private void RoleAction()
+    {
+        switch(playerRole)
+        {
             case GameManager.PlayerRole.Dealer:
                 DealAmmo();
                 break;
@@ -205,56 +233,85 @@ public class PlayerController : MonoBehaviour {
         hudScript.SetAmmoMax(sacADos);
     }
 
+    public void SetShumun(ShkumunManager.Malus malus) {
+        this.malus = malus;
+    }
+
     private void Fire() {
-        if (moveSpeed < runSpeed && bullet > 0) {
-            Debug.Log("Fire");
-            gun.Shoot();
+        if (this.malus == ShkumunManager.Malus.ShityGun)
+        {
+            gun.isBroken = true;
 			anim.SetBool("shoot", true);
-            hudScript.SetAmmoCurrentValue(--bullet);
+        } else
+        {
+            gun.isBroken = false;
         }
-        if (bullet == 0) {
-            Reload();
+
+        if (!isRunning && bullet > 0) {
+            bool fired = gun.Shoot();
+
+            if (fired)
+            {
+                hudScript.SetAmmoCurrentValue(--bullet);
+            }
         }
     }
 
-    private void HandleAim() {
+
+    private void HandleAim()
+    {
         float axisVal = InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.AimUp);
-        if (axisVal > axisThreshold) {
+        if (axisVal > axisThreshold)
+        {
             playerCam.transform.Rotate(-Time.deltaTime * aimSpeed * axisVal, 0, 0);
         }
 
         axisVal = InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.AimDown);
-        if (axisVal < -axisThreshold) {
+        if (axisVal < -axisThreshold)
+        {
             playerCam.transform.Rotate(-Time.deltaTime * aimSpeed * axisVal, 0, 0);
         }
 
         axisVal = InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.AimRight);
-        if (axisVal < -axisThreshold) {
+        if (axisVal < -axisThreshold)
+        {
             this.transform.Rotate(0, -Time.deltaTime * aimSpeed * axisVal, 0);
         }
 
         axisVal = InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.AimLeft);
-        if (axisVal > axisThreshold) {
+        if (axisVal > axisThreshold)
+        {
             this.transform.Rotate(0, -Time.deltaTime * aimSpeed * axisVal, 0);
         }
     }
 
-    private void HandleMotion() {
-        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveFwd) > axisThreshold) {
-            this.transform.position += transform.forward * moveSpeed * Time.deltaTime;
+    private void HandleMotion()
+    {
+        float actualSpeed = moveSpeed;
 			anim.SetFloat("speed", 1);
+        if (this.malus == ShkumunManager.Malus.Legg)
+        {
+            actualSpeed *= leggMalusFactor;
         }
-        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveBck) < -axisThreshold) {
-            this.transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+
+        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveFwd) > axisThreshold)
+        {
 			anim.SetFloat("speed", -1);
+            this.transform.position += transform.forward * actualSpeed * Time.deltaTime;
         }
-        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffRight) < -axisThreshold) {
-            this.transform.position += transform.right * moveSpeed * Time.deltaTime;
+        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveBck) < -axisThreshold)
+        {
 			anim.SetFloat("speed", 1);
+            this.transform.position -= transform.forward * actualSpeed * Time.deltaTime;
         }
-        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffLeft) > axisThreshold) {
-            this.transform.position -= transform.right * moveSpeed * Time.deltaTime;
+        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffRight) < -axisThreshold)
+        {
 			anim.SetFloat("speed", -1);
+            this.transform.position += transform.right * actualSpeed * Time.deltaTime;
+        }
+        if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffLeft) > axisThreshold)
+        {
+            this.transform.position -= transform.right * actualSpeed * Time.deltaTime;
         }
     }
 }
