@@ -52,6 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 0
-  frequency: 0.1
+  frequency: 0.5
   lastSpawn: 0
   enemyPfb: {fileID: 1846441724045130, guid: c4e6d8f7e0586104abc9ed258c6be229, type: 2}

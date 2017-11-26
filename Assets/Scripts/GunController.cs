@@ -5,6 +5,8 @@ using UnityEngine;
 public class GunController : MonoBehaviour {
 
     public Transform bullet;
+    public float ShootRate = 0.5f;
+    private float nextfire = 0f;
     [SerializeField]
     private AudioClip shootSound;
     private AudioSource source;
@@ -24,9 +26,10 @@ public class GunController : MonoBehaviour {
     }
 
     public void Shoot() {
-        source.PlayOneShot(shootSound, 1F);
-        Instantiate(bullet, transform.position,transform.rotation);
-
+        if(Time.time > nextfire) {
+            Instantiate(bullet, transform.position, transform.rotation);
+            nextfire = Time.time + ShootRate;
+            source.PlayOneShot(shootSound, 1F);
     }
 
 

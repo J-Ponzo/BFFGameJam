@@ -10,6 +10,7 @@ public class Bulle : MonoBehaviour {
     public Text textBulle;
     public RawImage imageBulle;
     public ParticleSystem explosion;
+    public Transform player;
 
     // Use this for initialization
     void Start () {
@@ -20,10 +21,12 @@ public class Bulle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (this.transform.position.z > 30.00) {         
+        Debug.Log(Mathf.Abs(this.transform.position.z - player.position.z));
+        Debug.Log(this.transform.position.z);
+        Debug.Log(player.position.z);
+        if (Mathf.Abs(this.transform.position.z - player.position.z) > 0.35) {            
             this.transform.Translate(new Vector3(0, 0, -2.5f));
         }
-      
 ;	}
 
     private void OnDestroy()
