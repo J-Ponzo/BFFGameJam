@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 
     public GunController gun;
     private HUDManager hudScript;
+	private Animator anim;
 
     public int bullet = 30;
     public int totalBullet = 30;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-
+		anim = GetComponent<Animator> ();
         playerCam = GetComponentInChildren<Camera>().gameObject;
 
         GameObject hud = Instantiate(hudPfb);
@@ -88,6 +89,8 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+		anim.SetFloat("speed", 0);
+		anim.SetBool("shoot", false);
         HandleMotion();
         HandleAim();
         HandleAction();
@@ -206,6 +209,7 @@ public class PlayerController : MonoBehaviour {
         if (moveSpeed < runSpeed && bullet > 0) {
             Debug.Log("Fire");
             gun.Shoot();
+			anim.SetBool("shoot", true);
             hudScript.SetAmmoCurrentValue(--bullet);
         }
         if (bullet == 0) {
@@ -238,15 +242,19 @@ public class PlayerController : MonoBehaviour {
     private void HandleMotion() {
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveFwd) > axisThreshold) {
             this.transform.position += transform.forward * moveSpeed * Time.deltaTime;
+			anim.SetFloat("speed", 1);
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveBck) < -axisThreshold) {
             this.transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+			anim.SetFloat("speed", -1);
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffRight) < -axisThreshold) {
             this.transform.position += transform.right * moveSpeed * Time.deltaTime;
+			anim.SetFloat("speed", 1);
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffLeft) > axisThreshold) {
             this.transform.position -= transform.right * moveSpeed * Time.deltaTime;
+			anim.SetFloat("speed", -1);
         }
     }
 }
