@@ -9,6 +9,11 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private NavMeshAgent agent;
 
+    [SerializeField]
+    private AudioClip crowdClip;
+    private AudioSource source; 
+
+
     public Vector3 TrgPos
     {
         get
@@ -20,6 +25,11 @@ public class EnemyController : MonoBehaviour {
         {
             trgPos = value;
         }
+    }
+
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
