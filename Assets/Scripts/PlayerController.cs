@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
     public float walkSpeed = 5f;
     public float runSpeed = 15f;
+    public float slowSpeed = 2f;
 
     public float range = 2f;
 
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour {
     public int totalBullet = 30;
     public int sacADos = 50;
     private int maxSacADos = 50;
+
+    private bool unluck = false;
 
     public int PlayerId {
         get {
@@ -202,12 +205,31 @@ public class PlayerController : MonoBehaviour {
         hudScript.SetAmmoMax(sacADos);
     }
 
+    private void BrokenLeg() {
+        moveSpeed = slowSpeed;
+    }
+
+    private void BrokenGun() {
+            int rand = UnityEngine.Random.Range(1, 3);
+            if (rand == 1) {
+                if (moveSpeed < runSpeed && bullet > 0) {
+                    gun.Shoot();
+                    hudScript.SetAmmoCurrentValue(--bullet);
+                }
+            }
+    }
+
+    public int setMalus() {
+        return UnityEngine.Random.Range(1, 2);
+    }
+
     private void Fire() {
+        
         if (moveSpeed < runSpeed && bullet > 0) {
-            Debug.Log("Fire");
             gun.Shoot();
             hudScript.SetAmmoCurrentValue(--bullet);
         }
+
         if (bullet == 0) {
             Reload();
         }
