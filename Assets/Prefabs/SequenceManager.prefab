@@ -52,5 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MENU_SCENE_NAME: MenuScene
-  GAME_SCENE_NAME: SceneHUD
+  GAME_SCENE_NAME: level Copy2
   curSequence: 0
