@@ -38,7 +38,7 @@ public class SequenceManager : MonoBehaviour {
     [SerializeField]
     private string MENU_SCENE_NAME = "MenuScene";
     [SerializeField]
-    private string GAME_SCENE_NAME = "testScene"; 
+    private string GAME_SCENE_NAME = "level Copy"; 
 
      [SerializeField]
     private Sequence curSequence = Sequence.Menus;

@@ -51,3 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b571ec1b31d734aa53b99e3efed859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MENU_SCENE_NAME: MenuScene
+  GAME_SCENE_NAME: level Copy
+  curSequence: 0
