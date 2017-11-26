@@ -87,6 +87,11 @@ public class PlayerController : MonoBehaviour {
         playerCam = GetComponentInChildren<Camera>().gameObject;
 
         GameObject hud = Instantiate(hudPfb);
+        hudScript = hud.GetComponent<HUDManager>();
+
+        hudScript.SetAmmoCurrentValue(bullet);
+        hudScript.SetAmmoMax(sacADos);
+
         hud.transform.SetParent(this.transform);
         Canvas hudCanvas = hud.GetComponent<Canvas>();
         hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
@@ -236,12 +241,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Fire() {
-        Debug.Log(hudScript);
-
         if (moveSpeed < runSpeed && bullet > 0) {
             gun.Shoot();
 
-
+            Debug.Log(hudScript);
             hudScript.SetAmmoCurrentValue(--bullet);
         }
 
