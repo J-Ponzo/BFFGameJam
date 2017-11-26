@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
     public float walkSpeed = 5f;
     public float runSpeed = 15f;
 
+    public float range = 2f;
+
     [SerializeField]
     private float moveSpeed = 5f;
     [SerializeField]
@@ -30,6 +32,8 @@ public class PlayerController : MonoBehaviour {
 
     public int bullet = 30;
     public int totalBullet = 30;
+    public int sacADos = 50;
+    private int maxSacADos = 50;
 
     public int PlayerId {
         get {
@@ -75,13 +79,11 @@ public class PlayerController : MonoBehaviour {
         hudScript = hud.GetComponent<HUDManager>();
 
         hudScript.SetAmmoCurrentValue(bullet);
-        hudScript.SetAmmoMax(totalBullet);
+        hudScript.SetAmmoMax(sacADos);
 
         hud.transform.parent = this.transform;
         Canvas hudCanvas = hud.GetComponent<Canvas>();
         hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
-
-        hudCanvas.planeDistance = 0.35f;
     }
 
     // Update is called once per frame
@@ -142,6 +144,22 @@ public class PlayerController : MonoBehaviour {
 
     private void Heal() {
         Debug.Log("Heal");
+
+        GameObject[] players = new GameObject[4];
+
+        players[0] = GameManager.instance.Player1;
+        players[1] = GameManager.instance.Player2;
+        players[2] = GameManager.instance.Player3;
+        players[3] = GameManager.instance.Player4;
+
+        for (int i = 0; i < players.Length; i++) {
+
+            if (players[i].GetComponent<PlayerController>().playerId != this.playerId && Vector3.Distance(transform.position, players[i].transform.position) <= range) {
+                Debug.Log("SOIGNE !");
+                break;
+            }
+        }
+
     }
 
     private void CloseDoor() {
@@ -151,16 +169,41 @@ public class PlayerController : MonoBehaviour {
     private void DealAmmo() {
         Debug.Log("DealAmmo");
 
+        GameObject[] players = new GameObject[4];
+
+        players[0] = GameManager.instance.Player1;
+        players[1] = GameManager.instance.Player2;
+        players[2] = GameManager.instance.Player3;
+        players[3] = GameManager.instance.Player4;
+
+        for (int i = 0; i < players.Length; i++) {
+
+            if (players[i].GetComponent<PlayerController>().playerId != this.playerId && Vector3.Distance(transform.position, players[i].transform.position) <= range) {
+                players[i].GetComponent<PlayerController>().sacADos = maxSacADos;
+                Debug.Log("AMMO DONNE !");
+                break;
+            }
+        }
+
     }
 
     private void Reload() {
         Debug.Log("Reload");
-        bullet = totalBullet;
+        int balleRecharger = (totalBullet - bullet);
+
+        int balles = Mathf.Min(balleRecharger, sacADos);
+
+        sacADos -= balles;
+
+        bullet += balles;
+
+        //bullet = totalBullet;
         hudScript.SetAmmoCurrentValue(bullet);
+        hudScript.SetAmmoMax(sacADos);
     }
 
     private void Fire() {
-        if (moveSpeed < runSpeed) {
+        if (moveSpeed < runSpeed && bullet > 0) {
             Debug.Log("Fire");
             gun.Shoot();
             hudScript.SetAmmoCurrentValue(--bullet);
