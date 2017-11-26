@@ -164,19 +164,19 @@ public class GameManager : MonoBehaviour
     private void InitPlayers()
     {
         //Create Players
-        player1 = Instantiate(playerPfb);
+        player1 = Instantiate(playerPfb, new Vector3(-13f, 0f, -8f), Quaternion.identity);
         PlayerController player1Ctrl = player1.GetComponent<PlayerController>();
         player1Ctrl.PlayerId = 0;
 
-        player2 = Instantiate(playerPfb);
+        player2 = Instantiate(playerPfb, new Vector3(-11f, 0f, -8f), Quaternion.identity);
         PlayerController player2Ctrl = player2.GetComponent<PlayerController>();
         player2Ctrl.PlayerId = 1;
 
-        player3 = Instantiate(playerPfb);
+        player3 = Instantiate(playerPfb, new Vector3(-11f, 0f, -6f), Quaternion.identity);
         PlayerController player3Ctrl = player3.GetComponent<PlayerController>();
         player3Ctrl.PlayerId = 2;
 
-        player4 = Instantiate(playerPfb);
+        player4 = Instantiate(playerPfb, new Vector3(-13f, 0f, -6f), Quaternion.identity);
         PlayerController player4Ctrl = player4.GetComponent<PlayerController>();
         player4Ctrl.PlayerId = 3;
 
