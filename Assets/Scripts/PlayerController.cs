@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     private GameManager.PlayerRole playerRole;
     [SerializeField]
     private InputManager.KeyMapping keyMap = InputManager.KeyMapping.KeyBoard;
+    [SerializeField]
+    private GameObject hudPfb;
 
     [SerializeField]
     private float moveSpeed = 3f;
@@ -67,6 +69,11 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         playerCam = GetComponentInChildren<Camera>().gameObject;
+
+        GameObject hud = Instantiate(hudPfb);
+        hud.transform.parent = this.transform;
+        Canvas hudCanvas = hud.GetComponent<Canvas>();
+        hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
     }
 	
 	// Update is called once per frame
