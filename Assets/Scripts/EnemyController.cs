@@ -11,7 +11,9 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private AudioClip crowdClip;
-    private AudioSource source; 
+    private AudioSource source;
+
+    private float distance = 2;
 
 
     public Vector3 TrgPos
@@ -40,5 +42,9 @@ public class EnemyController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         agent.SetDestination(trgPos);
+        if (Vector3.Distance(transform.position, trgPos) < distance) {
+            Destroy(gameObject);
+            Debug.Log("Héhé");
+        }
     }
 }
