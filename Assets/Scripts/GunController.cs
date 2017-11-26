@@ -26,10 +26,13 @@ public class GunController : MonoBehaviour {
     }
 
     public void Shoot() {
-        if(Time.time > nextfire) {
+        if (Time.time > nextfire)
+        {
             Instantiate(bullet, transform.position, transform.rotation);
             nextfire = Time.time + ShootRate;
-            source.PlayOneShot(shootSound, 1F);
+            float vol = Random.Range(vollowRange, volHighRange);
+            source.PlayOneShot(shootSound, vol);
+        }
     }
 
 
