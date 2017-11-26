@@ -54,3 +54,8 @@ MonoBehaviour:
   playerId: 0
   keyMap: 1
   playerRole: 4
+  MedicSprite: {fileID: 21300000, guid: 79c26ff2349760c4ebd4f34347dfecf7, type: 3}
+  DispenserSprite: {fileID: 21300000, guid: c6cdb2ec41b33b64e9801cfd84e0dbf5, type: 3}
+  DwarfSprite: {fileID: 21300000, guid: f091a48e1fb5e8241b3e9d9a677d239a, type: 3}
+  FloorWalkerSprite: {fileID: 21300000, guid: a3632e292396ad54389ec97e6d848e41, type: 3}
+  DefaultSprite: {fileID: 21300000, guid: 3b71641d3a4286e4c867705322385450, type: 3}

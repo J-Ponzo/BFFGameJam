@@ -23,15 +23,15 @@ public class CreditsChangeColor : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        saveColor = image.GetComponent<Image>().color; 
-        image.GetComponent<Image>().color = color;
+        //saveColor = image.GetComponent<Image>().color; 
+        //image.GetComponent<Image>().color = color;
          
       
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        image.GetComponent <Image>().color = saveColor;
+        //image.GetComponent <Image>().color = saveColor;
     }
 
    

@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MainCanvas
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Player2Body
   - Player3Body
   - Player4Body
-  - 
+  - Particle
   - 
   - 
   - 
@@ -40,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Front
+    uniqueID: 1631284421
     locked: 0
