@@ -9,7 +9,9 @@ public class Bullet : MonoBehaviour {
     [SerializeField]
     private AudioClip CrashWall; 
 
-    AudioSource audiosource; 
+    AudioSource audiosource;
+    
+
 
     public float bulletSpeed = 5f;
 
@@ -37,6 +39,7 @@ public class Bullet : MonoBehaviour {
             audiosource.PlayOneShot(CrashEnnemy, 0.2F); 
             Destroy(collision.gameObject);
         }
+
         audiosource.PlayOneShot(CrashWall, 0.2F);
         Destroy(gameObject);
     }

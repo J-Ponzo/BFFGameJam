@@ -452,8 +452,8 @@ MonoBehaviour:
   bullet: {fileID: 4695274087261664, guid: c146bcb6bdb197a409cde7ac0cae66eb, type: 2}
   ShootRate: 0.5
   shootSound: {fileID: 8300000, guid: fe5b7f4929a26f14f9580ea94bcb0b37, type: 3}
-  vollowRange: 0.5
-  volHighRange: 1
+  vollowRange: 0.1
+  volHighRange: 0.2
 --- !u!124 &124488192814402130
 Behaviour:
   m_ObjectHideFlags: 1

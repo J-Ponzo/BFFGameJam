@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 135280942215596792}
   - component: {fileID: 23888662044110468}
   - component: {fileID: 114919137001776138}
+  - component: {fileID: 82928891851887636}
   - component: {fileID: 54273266291676426}
-  - component: {fileID: 82959755909852658}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -99,7 +99,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &82959755909852658
+--- !u!82 &82928891851887636
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,8 +108,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 218220ef51dfd1e4583110f4cc8bde6f, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
