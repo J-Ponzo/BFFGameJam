@@ -7,7 +7,9 @@ public class Bullet : MonoBehaviour {
     [SerializeField]
     private AudioClip CrashEnnemy;
     [SerializeField]
-    private AudioClip CrashWall; 
+    private AudioClip CrashWall;
+    [SerializeField]
+    private GameObject audioScream;
 
     AudioSource audiosource;
     
@@ -36,11 +38,20 @@ public class Bullet : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            audiosource.PlayOneShot(CrashEnnemy, 0.2F); 
+            GameObject inst = Instantiate(audioScream, transform.parent, true);
+            inst.GetComponent<AudioSource>().PlayOneShot(CrashEnnemy, 0.001f);
+            Destroy(inst, 2.0f);
+
             Destroy(collision.gameObject);
         }
+        else
+        {
+            GameObject inst = Instantiate(audioScream, transform.parent, true);
+            inst.GetComponent<AudioSource>().PlayOneShot(CrashWall, 0.2f);
+            Destroy(inst, 2.0f);
 
-        audiosource.PlayOneShot(CrashWall, 0.2F);
-        Destroy(gameObject);
+
+            Destroy(gameObject);
+        }
     }
 }

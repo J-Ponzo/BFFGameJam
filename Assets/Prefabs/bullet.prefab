@@ -110,7 +110,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -190,8 +190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c4dcbeee8ba6e42b03be6a8bb83150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrashEnnemy: {fileID: 8300000, guid: 218220ef51dfd1e4583110f4cc8bde6f, type: 3}
-  CrashWall: {fileID: 8300000, guid: 0ea82eab7e0a46340bb944f134afcb49, type: 3}
+  CrashEnnemy: {fileID: 8300000, guid: 0ea82eab7e0a46340bb944f134afcb49, type: 3}
+  CrashWall: {fileID: 8300000, guid: 218220ef51dfd1e4583110f4cc8bde6f, type: 3}
+  audioScream: {fileID: 1423376624509492, guid: a722103227a2b2042b0dfe8d9bee3756,
+    type: 2}
   bulletSpeed: 5
 --- !u!135 &135280942215596792
 SphereCollider:
