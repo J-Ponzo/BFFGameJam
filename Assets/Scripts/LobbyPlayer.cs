@@ -15,7 +15,7 @@ public class LobbyPlayer : MonoBehaviour {
     private static int nbPlayerReady = 4;
     private int time;
 
-    private bool menuIsLoad = false; 
+    private static bool menuIsLoad = false; 
     private GameObject rolePlayer1;
     private GameObject rolePlayer2;
     private GameObject rolePlayer3;
