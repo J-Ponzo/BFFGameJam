@@ -28,7 +28,7 @@ public class GunController : MonoBehaviour {
         lastShoot += Time.deltaTime;
     }
 
-    public bool Shoot() {
+    public bool Shoot(int playerId) {
         if (lastShoot > ShootRate)
         {
             if (isBroken)
@@ -39,7 +39,9 @@ public class GunController : MonoBehaviour {
                     return false;
                 }
             }
-            Instantiate(bullet, transform.position + transform.forward, transform.rotation);
+            Transform clone = Instantiate(bullet, transform.position + transform.forward, transform.rotation);
+            Bullet bulletClone = clone.GetComponent<Bullet>();
+            bulletClone.SetPlayerId(playerId);
             lastShoot = 0f;
             float vol = Random.Range(vollowRange, volHighRange);
             source.PlayOneShot(shootSound, vol);

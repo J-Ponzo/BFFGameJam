@@ -11,11 +11,18 @@ public class Bullet : MonoBehaviour {
     [SerializeField]
     private GameObject audioScream;
 
+    public int playerID;
+
     AudioSource audiosource;
     
 
 
     public float bulletSpeed = 5f;
+
+    public void SetPlayerId(int iD)
+    {
+        playerID = iD;
+    }
 
     private void Awake()
     {
@@ -36,6 +43,8 @@ public class Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        GameObject actualPlayer = null;
+
         if (collision.gameObject.tag == "Player")
         {
             return;
@@ -44,6 +53,30 @@ public class Bullet : MonoBehaviour {
         {
             GameObject inst = Instantiate(audioScream, transform.parent, true);
             inst.GetComponent<AudioSource>().PlayOneShot(CrashEnnemy, 0.001f);
+
+            switch (playerID)
+            {
+                case 0:
+                   actualPlayer= GameManager.instance.Player1;
+                    break;
+                case 1:
+                    actualPlayer = GameManager.instance.Player1;
+                    break;
+                case 2:
+                    actualPlayer = GameManager.instance.Player1;
+                    break;
+                case 3:
+                    actualPlayer = GameManager.instance.Player1;
+                    break;
+                
+            }
+
+            actualPlayer.GetComponentInChildren<HUDManager>().ScoreIncrement(10);
+            actualPlayer.GetComponentInChildren<HUDManager>().NeutralisationIncrement();
+            int neutr = actualPlayer.GetComponentInChildren<HUDManager>().GetNeutralisation();
+            float res = neutr / (actualPlayer.GetComponent<PlayerController>().nbTir + 1);
+            actualPlayer.GetComponentInChildren<HUDManager>().SetPrecisionValue(res);
+
             Destroy(inst, 2.0f);
 
             Destroy(collision.gameObject);

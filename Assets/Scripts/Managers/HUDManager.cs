@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,7 +69,7 @@ public class HUDManager : MonoBehaviour {
         clone.timeoutDestructor = 2.5f;
         clone.player = this.transform;
 
-        int rand = Random.Range(0,(int)Declencheurs.CALL);
+        int rand = UnityEngine.Random.Range(0,(int)Declencheurs.CALL);
 
         clone.SetText(TextResolver((Declencheurs)rand));
     }
@@ -155,6 +157,9 @@ public class HUDManager : MonoBehaviour {
         return textRes;
     }
 
+
+    //TODO : REVOIR L ECRITURE DANSLE HUD
+/*------------------------------------------------------------------------------*/
     public void SetPrecisionValue(float precisionValue)
     {
         GameObject precision = transform.Find("CanvasPrecision").gameObject;
@@ -193,4 +198,28 @@ public class HUDManager : MonoBehaviour {
         Debug.Log(totalAmmoText[2]);
         totalAmmoText[2].text = ammoMax.ToString();
     }
+
+    public void ScoreIncrement(int i)
+    {
+        GameObject score = transform.Find("CanvasScore").gameObject;
+        Text[] scoreText = score.GetComponentsInChildren<Text>();
+        scoreText[1].text = (Int32.Parse(scoreText[1].text) + i ).ToString();
+    }
+
+    public void NeutralisationIncrement()
+    {
+        GameObject neutralisation = transform.Find("CanvasNeutralisation").gameObject;
+        Text[] neutralisationText = neutralisation.GetComponentsInChildren<Text>();
+        int res = Int32.Parse(neutralisationText[1].text) + 1;
+        neutralisationText[1].text = res.ToString();
+    }
+
+    public int GetNeutralisation()
+    {
+        GameObject neutralisation = transform.Find("CanvasNeutralisation").gameObject;
+        Text[] neutralisationText = neutralisation.GetComponentsInChildren<Text>();
+        Debug.Log(neutralisationText[1]);        
+        return Int32.Parse(neutralisationText[1].text);
+    }
+    /*------------------------------------------------------------------------------*/
 }

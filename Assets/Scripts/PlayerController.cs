@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private bool isRunning = false;
 
+    public int nbTir = 0;
+
     public int PlayerId {
         get {
 
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Fire))
         {
-            Fire();
+            Fire(playerId);
         }
         if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Action))
         {
@@ -244,7 +246,7 @@ public class PlayerController : MonoBehaviour {
         this.malus = malus;
     }
 
-    private void Fire() {
+    private void Fire(int playerId) {
         if (this.malus == ShkumunManager.Malus.ShityGun)
         {
             gun.isBroken = true;
@@ -255,10 +257,12 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (!isRunning && bullet > 0) {
-            bool fired = gun.Shoot();
+            bool fired = gun.Shoot(playerId);
 
             if (fired)
             {
+                nbTir++;
+                Debug.Log(nbTir);
                 hudScript.SetAmmoCurrentValue(--bullet);
             }
         }
