@@ -194,7 +194,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void CloseDoor() {
-        Debug.Log("CloseDoor");
+        foreach (GameObject openShop in SpawnManager.instance.GetOpenShops())
+        {
+            if (Vector3.Distance(this.transform.position, openShop.transform.position) <= range)
+            {
+                ShopScript shop = openShop.GetComponent<ShopScript>();
+                shop.Enable = false;
+            }
+        }
     }
 
     private void DealAmmo() {
