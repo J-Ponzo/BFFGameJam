@@ -62,7 +62,7 @@ public class HUDManager : MonoBehaviour {
     {
         Transform transClone = this.transform;
         transClone.localScale = new Vector3(1, 1, 1);
-        Bulle clone = (Bulle)Instantiate(bulleCree, this.transform, true);
+        Bulle clone = (Bulle)Instantiate(bulleCree, new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z -10), Quaternion.identity);
         clone.timeoutDestructor = 1.5f;
 
         int rand = Random.Range(0,(int)Declencheurs.CALL);
