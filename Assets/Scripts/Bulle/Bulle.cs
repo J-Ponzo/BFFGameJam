@@ -23,13 +23,7 @@ public class Bulle : MonoBehaviour {
         if (this.transform.position.z > 30.00) {         
             this.transform.Translate(new Vector3(0, 0, -2.5f));
         }
-        if(this.transform.rotation.z > 2.00)
-        {
-            this.transform.Rotate(Vector3.right * Time.deltaTime);
-        } else if (this.transform.rotation.z < -2.00)
-        {
-            this.transform.Rotate(Vector3.left * Time.deltaTime);
-        }
+      
 ;	}
 
     private void OnDestroy()
