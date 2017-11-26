@@ -39,7 +39,7 @@ public class GunController : MonoBehaviour {
                     return false;
                 }
             }
-            Instantiate(bullet, transform.position, transform.rotation);
+            Instantiate(bullet, transform.position + transform.forward, transform.rotation);
             lastShoot = 0f;
             float vol = Random.Range(vollowRange, volHighRange);
             source.PlayOneShot(shootSound, vol);

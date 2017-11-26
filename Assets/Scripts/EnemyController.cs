@@ -45,6 +45,9 @@ public class EnemyController : MonoBehaviour {
         if (Vector3.Distance(transform.position, trgPos) < distance) {
             Destroy(gameObject);
             Debug.Log("Héhé");
+
+
+
         }
     }
 }

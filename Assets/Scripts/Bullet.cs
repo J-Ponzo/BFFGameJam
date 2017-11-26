@@ -34,6 +34,10 @@ public class Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            return;
+        }
         if (collision.gameObject.tag == "Enemy")
         {
             audiosource.PlayOneShot(CrashEnnemy, 0.2F); 
