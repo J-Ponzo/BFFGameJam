@@ -58,6 +58,17 @@ public class ShkumunManager : MonoBehaviour {
 
     private void ThrowShkumun()
     {
+        //Unset Shkumun
+        PlayerController playerCtrl1 = GameManager.instance.Player1.GetComponent<PlayerController>();
+        PlayerController playerCtrl2 = GameManager.instance.Player2.GetComponent<PlayerController>();
+        PlayerController playerCtrl3 = GameManager.instance.Player3.GetComponent<PlayerController>();
+        PlayerController playerCtrl4 = GameManager.instance.Player4.GetComponent<PlayerController>();
+        playerCtrl1.SetShumun(Malus.None);
+        playerCtrl2.SetShumun(Malus.None);
+        playerCtrl3.SetShumun(Malus.None);
+        playerCtrl4.SetShumun(Malus.None);
+
+        //Set Shkumun
         Malus malus = Malus.None;
         int rand = UnityEngine.Random.Range(1, 4);
         switch(rand)

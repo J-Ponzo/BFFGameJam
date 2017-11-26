@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 
     public GunController gun;
     private HUDManager hudScript;
+	private Animator anim;
 
     public int bullet = 30;
     public int totalBullet = 30;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		anim = GetComponent<Animator> ();
         playerCam = GetComponentInChildren<Camera>().gameObject;
 
         GameObject hud = Instantiate(hudPfb);
@@ -105,6 +107,8 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		anim.SetFloat("speed", 0);
+		anim.SetBool("shoot", false);
         HandleMotion();
         HandleAim();
         HandleAction();
@@ -234,15 +238,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Fire() {
-        if (!isRunning && bullet > 0) {
-            gun.Shoot();
-
-            Debug.Log(hudScript);
-            hudScript.SetAmmoCurrentValue(--bullet);
+        if (this.malus == ShkumunManager.Malus.ShityGun)
+        {
+            gun.isBroken = true;
+			anim.SetBool("shoot", true);
+        } else
+        {
+            gun.isBroken = false;
         }
 
-        if (bullet == 0) {
-            Reload();
+        if (!isRunning && bullet > 0) {
+            bool fired = gun.Shoot();
+
+            if (fired)
+            {
+                hudScript.SetAmmoCurrentValue(--bullet);
+            }
         }
     }
 
@@ -277,6 +288,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleMotion()
     {
         float actualSpeed = moveSpeed;
+			anim.SetFloat("speed", 1);
         if (this.malus == ShkumunManager.Malus.Legg)
         {
             actualSpeed *= leggMalusFactor;
@@ -284,14 +296,17 @@ public class PlayerController : MonoBehaviour {
 
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveFwd) > axisThreshold)
         {
+			anim.SetFloat("speed", -1);
             this.transform.position += transform.forward * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveBck) < -axisThreshold)
         {
+			anim.SetFloat("speed", 1);
             this.transform.position -= transform.forward * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffRight) < -axisThreshold)
         {
+			anim.SetFloat("speed", -1);
             this.transform.position += transform.right * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffLeft) > axisThreshold)
