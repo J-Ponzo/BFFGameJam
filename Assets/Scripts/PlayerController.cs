@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
         playerCam = GetComponentInChildren<Camera>().gameObject;
 
         GameObject hud = Instantiate(hudPfb);
-        hud.transform.parent = this.transform;
+        hud.transform.SetParent(this.transform);
         Canvas hudCanvas = hud.GetComponent<Canvas>();
         hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
         hudCanvas.planeDistance = 0.35f;
