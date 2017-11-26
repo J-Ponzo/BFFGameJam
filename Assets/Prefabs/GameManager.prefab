@@ -138,7 +138,7 @@ MonoBehaviour:
     type: 2}
   lobbyPfb: {fileID: 1784465489602814, guid: 57985bf76b931c44ba70cde55f91c73d, type: 2}
   lobbyPlayers: []
-  playerPfb: {fileID: 1916644928767182, guid: 4e69c286d0b3a634880007e912c428c9, type: 2}
+  playerPfb: {fileID: 1916644928767182, guid: 20a6c3aa66d013047a95c3317286d571, type: 2}
   players: []
   player1: {fileID: 0}
   player2: {fileID: 0}
