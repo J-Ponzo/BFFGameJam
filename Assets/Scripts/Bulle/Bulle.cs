@@ -22,8 +22,8 @@ public class Bulle : MonoBehaviour {
 
         if (this.transform.position.z > 30.00) {         
             this.transform.Translate(new Vector3(0, 0, -2.5f));
-        }        
-;	}
+        }
+    }
 
     private void OnDestroy()
     {
