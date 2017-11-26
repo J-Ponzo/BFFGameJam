@@ -27,7 +27,7 @@ public class Bulle : MonoBehaviour {
         if (Mathf.Abs(this.transform.position.z - player.position.z) > 0.35) {            
             this.transform.Translate(new Vector3(0, 0, -2.5f));
         }
-;	}
+    }
 
     private void OnDestroy()
     {
