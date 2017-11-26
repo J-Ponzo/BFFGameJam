@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour {
 
@@ -13,7 +14,7 @@ public class HUDManager : MonoBehaviour {
     public Bulle bulleCree;
     public ParticleSystem explosion;
 
-    enum Declencheurs {FLECHETTES, SHOOT, K_COOP, K_SOLO, MIN, CLIENT1, TREIZE, STUN, STUCK, CLIENT2, POURCENT1, PARTIE1, PARTIE2, GEEK, WOMEN, MEN, SECONDE, RECOVER, DISTRI, DOORS, CALL};      
+    enum Declencheurs {FLECHETTES, SHOOT, K_COOP, K_SOLO, MIN, CLIENT1, TREIZE, STUN, STUCK, CLIENT2, POURCENT1, PARTIE1, PARTIE2, GEEK, WOMEN, MEN, SECONDE, RECOVER, DISTRI, DOORS, CALL};
 
     // Use this for initialization
     void Start () {       
@@ -24,16 +25,15 @@ public class HUDManager : MonoBehaviour {
 	void Update () {
         if (Input.GetMouseButtonDown(0))
         {
-            TakeDamage(5);
+            TakeDamage(5);                        
         } if (Input.GetKeyDown(KeyCode.Space)) {
             BulleCreation("Cool");
         }
         else
         {
             ReloadLife(0.1f);
-        }
-	}
-
+        }        
+    }
 
     //Diminue la bar de Stun du joueur
     void TakeDamage(/*Player player,*/ float damage)
@@ -59,6 +59,7 @@ public class HUDManager : MonoBehaviour {
         lifeBar.transform.localScale = new Vector3((playerCurrentLife / playerTotalLife), 1, 1);
     }
 
+    //Création de la popup
     void BulleCreation(string text)
     {
         Transform transClone = this.transform;
@@ -71,6 +72,7 @@ public class HUDManager : MonoBehaviour {
         clone.SetText(TextResolver((Declencheurs)rand));
     }
 
+    //Création de lexplosion lors de la destruction de la popup
     public void BulleExplosion()
     {
         ParticleSystem clone = (ParticleSystem)Instantiate(explosion, this.transform, true);
@@ -151,5 +153,37 @@ public class HUDManager : MonoBehaviour {
         }
 
         return textRes;
+    }
+
+    void SetPrecisionValue(float precisionValue)
+    {
+        GameObject precision = GameObject.Find("CanvasPrecision");
+        Text[] precisionText = precision.GetComponentsInChildren<Text>();
+        Debug.Log(precisionText[1]);
+        precisionText[1].text = precisionValue.ToString()+"%";
+    }
+
+    void SetNeutralisationValue(int neutralisationValue)
+    {
+        GameObject neutralisation = GameObject.Find("CanvasNeutralisation");
+        Text[] neutralisationText = neutralisation.GetComponentsInChildren<Text>();
+        Debug.Log(neutralisationText[1]);
+        neutralisationText[1].text = neutralisationValue.ToString();
+    }
+
+    void SetScoreValue(int scoreValue)
+    {
+        GameObject score = GameObject.Find("CanvasScore");
+        Text[] scoreText = score.GetComponentsInChildren<Text>();
+        Debug.Log(scoreText[1]);
+        scoreText[1].text = scoreValue.ToString();
+    }
+
+    void SetAmmoCurrentValue(int ammoCurrentValue)
+    {
+        GameObject ammoCurrent = GameObject.Find("CanvasAmmo");
+        Text[] ammoCurrentText = ammoCurrent.GetComponentsInChildren<Text>();
+        Debug.Log(ammoCurrentText[0]);
+        ammoCurrentText[0].text = ammoCurrentValue.ToString();
     }
 }
