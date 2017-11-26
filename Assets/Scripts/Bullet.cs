@@ -88,7 +88,8 @@ public class Bullet : MonoBehaviour {
             Destroy(inst, 2.0f);
 
 
-            Destroy(gameObject);
+           
         }
+        Destroy(gameObject);
     }
 }

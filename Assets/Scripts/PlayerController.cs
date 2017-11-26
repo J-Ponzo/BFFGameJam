@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float leggMalusFactor = 0.1f;
     [SerializeField]
-    private float runFactor = 5f;
+    private float runFactor = 3f;
     [SerializeField]
     private bool isRunning = false;
 
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		anim.SetFloat("speed", 0);
 		anim.SetBool("shoot", false);
         HandleMotion();
@@ -143,13 +143,11 @@ public class PlayerController : MonoBehaviour {
     private void StopRunning()
     {
         isRunning = false;
-        moveSpeed /= runFactor;
     }
 
     private void StartRunning()
     {
         isRunning = true;
-        moveSpeed *= runFactor;
     }
 
     private void RoleAction()
@@ -299,6 +297,10 @@ public class PlayerController : MonoBehaviour {
     private void HandleMotion()
     {
         float actualSpeed = moveSpeed;
+        if (isRunning)
+        {
+            actualSpeed *= runFactor;
+        }
         if (this.malus == ShkumunManager.Malus.Legg)
         {
             actualSpeed *= leggMalusFactor;
