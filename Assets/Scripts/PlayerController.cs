@@ -235,14 +235,12 @@ public class PlayerController : MonoBehaviour {
 
     private void Fire() {
         if (!isRunning && bullet > 0) {
-            gun.Shoot();
+            bool fired = gun.Shoot();
 
-            Debug.Log(hudScript);
-            hudScript.SetAmmoCurrentValue(--bullet);
-        }
-
-        if (bullet == 0) {
-            Reload();
+            if (fired)
+            {
+                hudScript.SetAmmoCurrentValue(--bullet);
+            }
         }
     }
 

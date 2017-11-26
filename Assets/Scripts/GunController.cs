@@ -6,14 +6,14 @@ public class GunController : MonoBehaviour {
 
     public Transform bullet;
     public float ShootRate = 0.5f;
-    private float nextfire = 0f;
+    private float lastShoot = 0f;
     [SerializeField]
     private AudioClip shootSound;
     private AudioSource source;
     [SerializeField]
     private float vollowRange = 0.5f;
     [SerializeField]
-    private float volHighRange = 1.0f; 
+    private float volHighRange = 1.0f;
 
     // Use this for initialization
     void Start() {
@@ -23,16 +23,19 @@ public class GunController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        lastShoot += Time.deltaTime;
     }
 
-    public void Shoot() {
-        if (Time.time > nextfire)
+    public bool Shoot() {
+        if (lastShoot > ShootRate)
         {
             Instantiate(bullet, transform.position, transform.rotation);
-            nextfire = Time.time + ShootRate;
+            lastShoot = 0f;
             float vol = Random.Range(vollowRange, volHighRange);
             source.PlayOneShot(shootSound, vol);
+            return true;
         }
+        return false;
     }
 
 
