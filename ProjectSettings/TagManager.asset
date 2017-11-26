@@ -8,6 +8,7 @@ TagManager:
   - Spawner
   - Shop
   - MainCanvas
+  - Audio
   layers:
   - Default
   - TransparentFX
