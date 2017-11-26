@@ -73,6 +73,90 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         HandleMotion();
         HandleAim();
+        HandleAction();
+    }
+
+    private void HandleAction()
+    {
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Fire))
+        {
+            Fire();
+        }
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Action))
+        {
+            RoleAction();
+        }
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Reload))
+        {
+            Reload();
+        }
+        if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Run))
+        {
+            StartRunning();
+        }
+        if (InputManager.instance.GetKeyUp(playerId, keyMap, InputManager.ActionControl.Run))
+        {
+            StopRunning();
+        }
+    }
+
+    private void StopRunning()
+    {
+        Debug.Log("StopRunning");
+    }
+
+    private void StartRunning()
+    {
+        Debug.Log("StartRunning");
+    }
+
+    private void RoleAction()
+    {
+        switch(playerRole)
+        {
+            case GameManager.PlayerRole.Dealer:
+                DealAmmo();
+                break;
+            case GameManager.PlayerRole.Dwarf:
+                CloseDoor();
+                break;
+            case GameManager.PlayerRole.Medic:
+                Heal();
+                break;
+            case GameManager.PlayerRole.Talky:
+                CallComander();
+                break;
+        }
+    }
+
+    private void CallComander()
+    {
+        Debug.Log("CallComander");
+    }
+
+    private void Heal()
+    {
+        Debug.Log("Heal");
+    }
+
+    private void CloseDoor()
+    {
+        Debug.Log("CloseDoor");
+    }
+
+    private void DealAmmo()
+    {
+        Debug.Log("DealAmmo");
+    }
+
+    private void Reload()
+    {
+        Debug.Log("Reload");
+    }
+
+    private void Fire()
+    {
+        Debug.Log("Fire");
     }
 
     private void HandleAim()

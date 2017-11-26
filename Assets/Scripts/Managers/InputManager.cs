@@ -1017,16 +1017,8 @@ public class InputManager : MonoBehaviour
                 return KeyCode.D;
             case ActionControl.StraffLeft:
                 return KeyCode.Q;
-            //case ActionControl.AimRight:
-            //    return KeyCode.RightArrow;
-            //case ActionControl.AimLeft:
-            //    return KeyCode.LeftArrow;
-            //case ActionControl.AimUp:
-            //    return KeyCode.UpArrow;
-            //case ActionControl.AimDown:
-            //    return KeyCode.DownArrow;
             case ActionControl.Fire:
-                return KeyCode.Space;
+                return KeyCode.Mouse0;
             case ActionControl.Reload:
                 return KeyCode.R;
             case ActionControl.Action:
