@@ -60,6 +60,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player4;
 
+    [SerializeField]
+    private AudioClip menuClip;
+    [SerializeField]
+    private AudioClip gameClip;
+
+    private AudioSource source; 
+
+
     public GameObject Player1
     {
         get
@@ -152,6 +160,9 @@ public class GameManager : MonoBehaviour
                 lobby.KeyMap = InputManager.instance.GetKeymapFromJoytickName(joystickName);
             }
         }
+        source = GetComponent<AudioSource>();
+        MusiqueOnline();
+       
     }
 
     public void CreatePlayersFromLobby()
@@ -294,5 +305,21 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void MusiqueOnline()
+    {
+        if (SequenceManager.instance.CurSequence == SequenceManager.Sequence.InGame)
+        {
+            source.clip = gameClip;
+            source.volume = 0.1f;
+            source.Play(2);
+        }
+        else
+        {
+            source.clip = menuClip;
+            source.volume = 0.3f;
+            source.Play(2);
+        }
     }
 }

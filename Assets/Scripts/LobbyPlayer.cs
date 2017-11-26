@@ -183,8 +183,9 @@ public class LobbyPlayer : MonoBehaviour {
             temp += Time.deltaTime ;
             yield return null;
         }
+       
         SequenceManager.instance.LoadSequence(SequenceManager.Sequence.InGame);
-        
+        GameManager.instance.MusiqueOnline(); 
     }
 
 
