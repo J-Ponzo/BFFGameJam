@@ -54,4 +54,7 @@ MonoBehaviour:
   enable: 0
   frequency: 0.5
   lastSpawn: 0
-  enemyPfb: {fileID: 1846441724045130, guid: c4e6d8f7e0586104abc9ed258c6be229, type: 2}
+  enemyPfb:
+  - {fileID: 1711095069563234, guid: 964be5a2ce711834397b1faa50dbf73f, type: 2}
+  - {fileID: 1587777570807694, guid: 7cdbb1ef61af79d44854771ea6a0aa0b, type: 2}
+  - {fileID: 1106080356441896, guid: 35ab5b6f656482440b32cc2d9f2a1d04, type: 2}

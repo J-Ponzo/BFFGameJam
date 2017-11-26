@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0cf36b3f8024647a42b4aab9e07ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawners: []
+  spawners:
+  - {fileID: 0}
   shops: []
   spawnActiveFrequency: 0.01
   shopActiveFrequency: 0.01
