@@ -2543,7 +2543,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!92 &92472066723145038
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2596,7 +2596,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d64d469cfb7834d9db18a043507fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBroken: 0
   bullet: {fileID: 4695274087261664, guid: c146bcb6bdb197a409cde7ac0cae66eb, type: 2}
+  ShootRate: 0.5
+  shootSound: {fileID: 0}
+  vollowRange: 0.5
+  volHighRange: 1
+  chance: 0.13
 --- !u!114 &114335112875419496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2612,8 +2618,6 @@ MonoBehaviour:
   playerRole: 0
   keyMap: 1
   hudPfb: {fileID: 1401229008250088, guid: 45ed70bffdd888d4c96a41f6d67c803c, type: 2}
-  walkSpeed: 5
-  runSpeed: 15
   range: 2
   moveSpeed: 3
   aimSpeed: 90
@@ -2622,6 +2626,10 @@ MonoBehaviour:
   bullet: 30
   totalBullet: 30
   sacADos: 50
+  malus: 0
+  leggMalusFactor: 0.1
+  runFactor: 2.5
+  isRunning: 0
 --- !u!114 &114599935645763658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2633,7 +2641,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d64d469cfb7834d9db18a043507fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBroken: 0
   bullet: {fileID: 4695274087261664, guid: c146bcb6bdb197a409cde7ac0cae66eb, type: 2}
+  ShootRate: 0.5
+  shootSound: {fileID: 0}
+  vollowRange: 0.5
+  volHighRange: 1
+  chance: 0.13
 --- !u!124 &124488192814402130
 Behaviour:
   m_ObjectHideFlags: 1

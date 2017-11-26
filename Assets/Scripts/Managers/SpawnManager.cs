@@ -75,7 +75,7 @@ public class SpawnManager : MonoBehaviour {
         }
     }
 
-    private List<GameObject> GetClosedShops()
+    public List<GameObject> GetClosedShops()
     {
         List<GameObject> closed = new List<GameObject>();
         foreach (GameObject shop in shops)
@@ -88,7 +88,7 @@ public class SpawnManager : MonoBehaviour {
         return closed;
     }
 
-    private List<GameObject> GetOpenShops()
+    public List<GameObject> GetOpenShops()
     {
         List<GameObject> open = new List<GameObject>();
         foreach (GameObject shop in shops)
