@@ -156,7 +156,7 @@ public class HUDManager : MonoBehaviour {
         return textRes;
     }
 
-    void SetPrecisionValue(float precisionValue)
+    public void SetPrecisionValue(float precisionValue)
     {
         GameObject precision = GameObject.Find("CanvasPrecision");
         Text[] precisionText = precision.GetComponentsInChildren<Text>();
@@ -164,7 +164,7 @@ public class HUDManager : MonoBehaviour {
         precisionText[1].text = precisionValue.ToString()+"%";
     }
 
-    void SetNeutralisationValue(int neutralisationValue)
+    public void SetNeutralisationValue(int neutralisationValue)
     {
         GameObject neutralisation = GameObject.Find("CanvasNeutralisation");
         Text[] neutralisationText = neutralisation.GetComponentsInChildren<Text>();
@@ -172,7 +172,7 @@ public class HUDManager : MonoBehaviour {
         neutralisationText[1].text = neutralisationValue.ToString();
     }
 
-    void SetScoreValue(int scoreValue)
+    public void SetScoreValue(int scoreValue)
     {
         GameObject score = GameObject.Find("CanvasScore");
         Text[] scoreText = score.GetComponentsInChildren<Text>();
@@ -180,11 +180,18 @@ public class HUDManager : MonoBehaviour {
         scoreText[1].text = scoreValue.ToString();
     }
 
-    void SetAmmoCurrentValue(int ammoCurrentValue)
+    public void SetAmmoCurrentValue(int ammoCurrentValue)
     {
         GameObject ammoCurrent = GameObject.Find("CanvasAmmo");
         Text[] ammoCurrentText = ammoCurrent.GetComponentsInChildren<Text>();
         Debug.Log(ammoCurrentText[0]);
         ammoCurrentText[0].text = ammoCurrentValue.ToString();
+    }
+
+    public void SetAmmoMax(int ammoMax) {
+        GameObject totalAmmo = GameObject.Find("CanvasAmmo");
+        Text[] totalAmmoText = totalAmmo.GetComponentsInChildren<Text>();
+        Debug.Log(totalAmmoText[2]);
+        totalAmmoText[2].text = ammoMax.ToString();
     }
 }
