@@ -47,7 +47,7 @@ public class SpawnerScript : MonoBehaviour {
 
     private void SpawnEnemy()
     {
-		GameObject enemy = Instantiate(enemyPfb[UnityEngine.Random.Range(0, enemyPfb.Length-1)], transform.position, transform.rotation);
+		GameObject enemy = Instantiate(enemyPfb[UnityEngine.Random.Range(0, enemyPfb.Length)], transform.position, transform.rotation);
         EnemyController enemyCtrl = enemy.GetComponent<EnemyController>();
         GameObject shop = SpawnManager.instance.GetRandomShop();
         Vector3 dest = Vector3.zero;
