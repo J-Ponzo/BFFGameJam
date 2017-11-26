@@ -14,6 +14,8 @@ public class LobbyPlayer : MonoBehaviour {
 
     private static int nbPlayerReady = 4;
     private int time;
+
+    private static bool menuIsLoad = false; 
     private GameObject rolePlayer1;
     private GameObject rolePlayer2;
     private GameObject rolePlayer3;
@@ -100,67 +102,71 @@ public class LobbyPlayer : MonoBehaviour {
    
     private void Update()
     {
-            
-        if (GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<HelloWorld>().IsPlayMenuActive == true && listRole.Count > 0)
+        if (GameObject.FindGameObjectWithTag("MainCanvas") != null)
         {
-            int index = listRole[Random.Range(0, listRole.Count)];
-            if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Pause))
+            if (GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<HelloWorld>().IsPlayMenuActive == true && listRole.Count > 0)
             {
-                if(!isReady) { 
-
-                    playerRole = (GameManager.PlayerRole)index;
-                    listRole.Remove((int)playerRole);
-                    isReady = true;
-                  
-                
-                     nbPlayerReady--;
-                    GameObject.Find("NbPlayerTxt").GetComponent<Text>().text = ""+nbPlayerReady;
-
-                     switch (playerId)
-                     {
-                            case 0:
-                            rolePlayer1 = GameObject.Find("PlayerRoleTxt");
-                            rolePlayer1.GetComponent<Text>().text = RoleToString(playerRole);
-                            imagePlayer1 = GameObject.Find("ImagePlayer");
-                            imagePlayer1.GetComponent<Image>().sprite = RoleToImage(playerRole);
-                            break;
-                            case 1:
-                            rolePlayer2 = GameObject.Find("PlayerRole1Txt");
-                            rolePlayer2.GetComponent<Text>().text = RoleToString(playerRole);
-                            imagePlayer2 = GameObject.Find("ImagePlayer1");
-                            imagePlayer2.GetComponent<Image>().sprite = RoleToImage(playerRole);
-                            break;
-                            case 2:
-                            rolePlayer3 = GameObject.Find("PlayerRole2Txt");
-                            rolePlayer3.GetComponent<Text>().text = RoleToString(playerRole);
-                            imagePlayer3 = GameObject.Find("ImagePlayer2");
-                            imagePlayer3.GetComponent<Image>().sprite = RoleToImage(playerRole);
-                            break;
-                            case 3:
-                            rolePlayer4 = GameObject.Find("PlayerRole3Txt");
-                            rolePlayer4.GetComponent<Text>().text = RoleToString(playerRole);
-                            imagePlayer4 = GameObject.Find("ImagePlayer3");
-                            imagePlayer4.GetComponent<Image>().sprite = RoleToImage(playerRole);
-                            break; 
-                     }
-                }
-                else
+                int index = listRole[Random.Range(0, listRole.Count)];
+                if (InputManager.instance.GetKeyDown(playerId, keyMap, InputManager.ActionControl.Pause))
                 {
-                    listRole.Add((int)playerRole);
-                    playerRole = GameManager.PlayerRole.None;
-                    nbPlayerReady++;
-                    GameObject.Find("NbPlayerTxt").GetComponent<Text>().text = "" + nbPlayerReady;
-                    Reinit();
-                    isReady = false;
-                }
-            }
-               
-        }
+                    if (!isReady)
+                    {
 
-        if(nbPlayerReady == 0)
-        { 
-            GameObject.Find("NbPlayerTxt").GetComponent<Text>().text = "";
-            StartCoroutine (Countdown());
+                        playerRole = (GameManager.PlayerRole)index;
+                        listRole.Remove((int)playerRole);
+                        isReady = true;
+
+
+                        nbPlayerReady--;
+                        GameObject.Find("NbPlayerTxt").GetComponent<Text>().text = "" + nbPlayerReady;
+
+                        switch (playerId)
+                        {
+                            case 0:
+                                rolePlayer1 = GameObject.Find("PlayerRoleTxt");
+                                rolePlayer1.GetComponent<Text>().text = RoleToString(playerRole);
+                                imagePlayer1 = GameObject.Find("ImagePlayer");
+                                imagePlayer1.GetComponent<Image>().sprite = RoleToImage(playerRole);
+                                break;
+                            case 1:
+                                rolePlayer2 = GameObject.Find("PlayerRole1Txt");
+                                rolePlayer2.GetComponent<Text>().text = RoleToString(playerRole);
+                                imagePlayer2 = GameObject.Find("ImagePlayer1");
+                                imagePlayer2.GetComponent<Image>().sprite = RoleToImage(playerRole);
+                                break;
+                            case 2:
+                                rolePlayer3 = GameObject.Find("PlayerRole2Txt");
+                                rolePlayer3.GetComponent<Text>().text = RoleToString(playerRole);
+                                imagePlayer3 = GameObject.Find("ImagePlayer2");
+                                imagePlayer3.GetComponent<Image>().sprite = RoleToImage(playerRole);
+                                break;
+                            case 3:
+                                rolePlayer4 = GameObject.Find("PlayerRole3Txt");
+                                rolePlayer4.GetComponent<Text>().text = RoleToString(playerRole);
+                                imagePlayer4 = GameObject.Find("ImagePlayer3");
+                                imagePlayer4.GetComponent<Image>().sprite = RoleToImage(playerRole);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        listRole.Add((int)playerRole);
+                        playerRole = GameManager.PlayerRole.None;
+                        nbPlayerReady++;
+                        GameObject.Find("NbPlayerTxt").GetComponent<Text>().text = "" + nbPlayerReady;
+                        Reinit();
+                        isReady = false;
+                    }
+                }
+
+            }
+
+            if (nbPlayerReady == 0 && !menuIsLoad)
+            {
+                GameObject.Find("NbPlayerTxt").GetComponent<Text>().text = "";
+                menuIsLoad = true;
+                StartCoroutine(Countdown());
+            }
         }
 
 
@@ -178,6 +184,7 @@ public class LobbyPlayer : MonoBehaviour {
             yield return null;
         }
         SequenceManager.instance.LoadSequence(SequenceManager.Sequence.InGame);
+        
     }
 
 
