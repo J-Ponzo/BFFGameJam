@@ -234,6 +234,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Fire() {
+        if (this.malus == ShkumunManager.Malus.ShityGun)
+        {
+            gun.isBroken = true;
+        } else
+        {
+            gun.isBroken = false;
+        }
+
         if (!isRunning && bullet > 0) {
             bool fired = gun.Shoot();
 
