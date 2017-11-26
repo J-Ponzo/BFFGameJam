@@ -36,6 +36,10 @@ public class Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            return;
+        }
         if (collision.gameObject.tag == "Enemy")
         {
             GameObject inst = Instantiate(audioScream, transform.parent, true);
