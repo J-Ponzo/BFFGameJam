@@ -10,7 +10,7 @@ public class HUDManager : MonoBehaviour {
 
     private float timeBeforeHeal;
     private float recoveryTimeHeal = 2;
-   
+    public Sprite bullesTab;
     public Bulle bulleCree;
     public ParticleSystem explosion;
 
@@ -23,9 +23,11 @@ public class HUDManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-                            
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            BulleCreation();
+        if (Input.GetMouseButtonDown(0))
+        {
+            TakeDamage(5);                        
+        } if (Input.GetKeyDown(KeyCode.Space)) {
+            BulleCreation("Cool");
         }
         else
         {
@@ -58,12 +60,13 @@ public class HUDManager : MonoBehaviour {
     }
 
     //Création de la popup
-    void BulleCreation()
+    void BulleCreation(string text)
     {
         Transform transClone = this.transform;
         transClone.localScale = new Vector3(1, 1, 1);
-        Bulle clone = (Bulle)Instantiate(bulleCree, this.transform, true);
+        Bulle clone = (Bulle)Instantiate(bulleCree, this.transform, false);
         clone.timeoutDestructor = 1.5f;
+        clone.player = this.transform;
 
         int rand = Random.Range(0,(int)Declencheurs.CALL);
 
@@ -155,7 +158,7 @@ public class HUDManager : MonoBehaviour {
 
     public void SetPrecisionValue(float precisionValue)
     {
-        GameObject precision = transform.Find("CanvasPrecision").gameObject;
+        GameObject precision = GameObject.Find("CanvasPrecision");
         Text[] precisionText = precision.GetComponentsInChildren<Text>();
         Debug.Log(precisionText[1]);
         precisionText[1].text = precisionValue.ToString()+"%";
@@ -163,7 +166,7 @@ public class HUDManager : MonoBehaviour {
 
     public void SetNeutralisationValue(int neutralisationValue)
     {
-        GameObject neutralisation = transform.Find("CanvasNeutralisation").gameObject;
+        GameObject neutralisation = GameObject.Find("CanvasNeutralisation");
         Text[] neutralisationText = neutralisation.GetComponentsInChildren<Text>();
         Debug.Log(neutralisationText[1]);
         neutralisationText[1].text = neutralisationValue.ToString();
@@ -171,7 +174,7 @@ public class HUDManager : MonoBehaviour {
 
     public void SetScoreValue(int scoreValue)
     {
-        GameObject score = transform.Find("CanvasScore").gameObject;
+        GameObject score = GameObject.Find("CanvasScore");
         Text[] scoreText = score.GetComponentsInChildren<Text>();
         Debug.Log(scoreText[1]);
         scoreText[1].text = scoreValue.ToString();
@@ -179,14 +182,14 @@ public class HUDManager : MonoBehaviour {
 
     public void SetAmmoCurrentValue(int ammoCurrentValue)
     {
-        GameObject ammoCurrent = transform.Find("CanvasAmmo").gameObject;
+        GameObject ammoCurrent = GameObject.Find("CanvasAmmo");
         Text[] ammoCurrentText = ammoCurrent.GetComponentsInChildren<Text>();
         Debug.Log(ammoCurrentText[0]);
         ammoCurrentText[0].text = ammoCurrentValue.ToString();
     }
 
     public void SetAmmoMax(int ammoMax) {
-        GameObject totalAmmo = transform.Find("CanvasAmmo").gameObject;
+        GameObject totalAmmo = GameObject.Find("CanvasAmmo");
         Text[] totalAmmoText = totalAmmo.GetComponentsInChildren<Text>();
         Debug.Log(totalAmmoText[2]);
         totalAmmoText[2].text = ammoMax.ToString();
