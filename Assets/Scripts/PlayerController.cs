@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour {
         hud.transform.parent = this.transform;
         Canvas hudCanvas = hud.GetComponent<Canvas>();
         hudCanvas.worldCamera = playerCam.GetComponent<Camera>();
+        hudCanvas.planeDistance = 0.35f;
     }
 	
 	// Update is called once per frame
