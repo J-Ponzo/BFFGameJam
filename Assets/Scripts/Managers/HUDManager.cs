@@ -157,7 +157,7 @@ public class HUDManager : MonoBehaviour {
 
     public void SetPrecisionValue(float precisionValue)
     {
-        GameObject precision = GameObject.Find("CanvasPrecision");
+        GameObject precision = transform.Find("CanvasPrecision").gameObject;
         Text[] precisionText = precision.GetComponentsInChildren<Text>();
         Debug.Log(precisionText[1]);
         precisionText[1].text = precisionValue.ToString()+"%";
@@ -165,7 +165,7 @@ public class HUDManager : MonoBehaviour {
 
     public void SetNeutralisationValue(int neutralisationValue)
     {
-        GameObject neutralisation = GameObject.Find("CanvasNeutralisation");
+        GameObject neutralisation = transform.Find("CanvasNeutralisation").gameObject;
         Text[] neutralisationText = neutralisation.GetComponentsInChildren<Text>();
         Debug.Log(neutralisationText[1]);
         neutralisationText[1].text = neutralisationValue.ToString();
@@ -173,7 +173,7 @@ public class HUDManager : MonoBehaviour {
 
     public void SetScoreValue(int scoreValue)
     {
-        GameObject score = GameObject.Find("CanvasScore");
+        GameObject score = transform.Find("CanvasScore").gameObject;
         Text[] scoreText = score.GetComponentsInChildren<Text>();
         Debug.Log(scoreText[1]);
         scoreText[1].text = scoreValue.ToString();
@@ -181,14 +181,14 @@ public class HUDManager : MonoBehaviour {
 
     public void SetAmmoCurrentValue(int ammoCurrentValue)
     {
-        GameObject ammoCurrent = GameObject.Find("CanvasAmmo");
+        GameObject ammoCurrent = transform.Find("CanvasAmmo").gameObject;
         Text[] ammoCurrentText = ammoCurrent.GetComponentsInChildren<Text>();
         Debug.Log(ammoCurrentText[0]);
         ammoCurrentText[0].text = ammoCurrentValue.ToString();
     }
 
     public void SetAmmoMax(int ammoMax) {
-        GameObject totalAmmo = GameObject.Find("CanvasAmmo");
+        GameObject totalAmmo = transform.Find("CanvasAmmo").gameObject;
         Text[] totalAmmoText = totalAmmo.GetComponentsInChildren<Text>();
         Debug.Log(totalAmmoText[2]);
         totalAmmoText[2].text = ammoMax.ToString();
