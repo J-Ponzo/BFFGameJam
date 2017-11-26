@@ -288,7 +288,6 @@ public class PlayerController : MonoBehaviour {
     private void HandleMotion()
     {
         float actualSpeed = moveSpeed;
-			anim.SetFloat("speed", 1);
         if (this.malus == ShkumunManager.Malus.Legg)
         {
             actualSpeed *= leggMalusFactor;
@@ -296,21 +295,25 @@ public class PlayerController : MonoBehaviour {
 
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveFwd) > axisThreshold)
         {
-			anim.SetFloat("speed", -1);
+            anim.SetFloat("speed", 1);
+            
             this.transform.position += transform.forward * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.MoveBck) < -axisThreshold)
         {
-			anim.SetFloat("speed", 1);
+            anim.SetFloat("speed", -1);
+            
             this.transform.position -= transform.forward * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffRight) < -axisThreshold)
         {
-			anim.SetFloat("speed", -1);
+            anim.SetFloat("speed", 1);
+            
             this.transform.position += transform.right * actualSpeed * Time.deltaTime;
         }
         if (InputManager.instance.GetAxis(playerId, keyMap, InputManager.ActionControl.StraffLeft) > axisThreshold)
         {
+            anim.SetFloat("speed", -1);
             this.transform.position -= transform.right * actualSpeed * Time.deltaTime;
         }
     }
