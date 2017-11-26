@@ -10,7 +10,7 @@ public class HUDManager : MonoBehaviour {
 
     private float timeBeforeHeal;
     private float recoveryTimeHeal = 2;
-    public Sprite bullesTab;
+   
     public Bulle bulleCree;
     public ParticleSystem explosion;
 
@@ -23,11 +23,9 @@ public class HUDManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0))
-        {
-            TakeDamage(5);                        
-        } if (Input.GetKeyDown(KeyCode.Space)) {
-            BulleCreation("Cool");
+                            
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            BulleCreation();
         }
         else
         {
@@ -60,11 +58,12 @@ public class HUDManager : MonoBehaviour {
     }
 
     //Création de la popup
-    void BulleCreation(string text)
+    void BulleCreation()
     {
         Transform transClone = this.transform;
         transClone.localScale = new Vector3(1, 1, 1);
         Bulle clone = (Bulle)Instantiate(bulleCree, this.transform, false);
+       
         clone.timeoutDestructor = 1.5f;
         clone.player = this.transform;
 
